@@ -6,13 +6,13 @@ import cv2
 transform_dict = {
     'train': transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize(128),
+        transforms.Resize([480, 480]),
         transforms.ToTensor(),
         transforms.Normalize((0.5, ), (0.5, ))
     ]),
     'test': transforms.Compose([
         transforms.ToTensor(),
-        transforms.Resize(128),
+        transforms.Resize([480, 480]),
         transforms.ToTensor(),
         transforms.Normalize((0.5, ), (0.5, ))
     ])
@@ -41,7 +41,7 @@ class ConstructDataset(Dataset):
 
     def __getitem__(self, index):
         file_name = self.file_list[index]
-        image = cv2.imread(file_name, cv2.IMREAD_GRAYSCALE)
+        image = cv2.imread(file_name, 1)
         image = transform_dict[self.phase](image)
         return image, 1
 
